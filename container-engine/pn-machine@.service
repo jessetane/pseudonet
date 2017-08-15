@@ -1,0 +1,39 @@
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Pseudonet machine %i
+Documentation=man:systemd-nspawn(1)
+PartOf=machines.target
+Before=machines.target
+After=network.target systemd-resolved.service
+RequiresMountsFor=/var/lib/machines
+
+[Service]
+EnvironmentFile=-/tmp/%i
+ExecStartPre=/bin/bash -c 'n=0; while read line; do echo "i$${n}=\"$${line}\""; n=$$((n+1)); done > /tmp/%i < <(echo "%i" | tr "_" "\n")'
+ExecStart=/usr/bin/systemd-nspawn --quiet --keep-unit --boot --ephemeral --private-network -U --settings=override --directory=/var/lib/machines/${i0} --machine=${i1}
+KillMode=mixed
+Type=notify
+RestartForceExitStatus=133
+SuccessExitStatus=133
+Slice=machine.slice
+Delegate=yes
+TasksMax=16384
+
+DevicePolicy=closed
+DeviceAllow=/dev/net/tun rwm
+DeviceAllow=char-pts rw
+
+# nspawn itself needs access to /dev/loop-control and /dev/loop, to
+# implement the --image= option. Add these here, too.
+DeviceAllow=/dev/loop-control rw
+DeviceAllow=block-loop rw
+DeviceAllow=block-blkext rw
+
+[Install]
+WantedBy=machines.target
