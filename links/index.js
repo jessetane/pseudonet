@@ -55,30 +55,4 @@ module.exports = class Links {
     }
     cb(null, links)
   }
-
-  enable (id, cb) {
-    if (typeof cb !== 'function') return
-    var db = this.bus.database
-    var link = db.objects[id]
-    if (!link || link.type !== 'link') {
-      cb(new Error('link not found'))
-      return
-    }
-    link.enabled = true
-    db.update({ [id]: link })
-    cb()
-  }
-
-  disable (id, cb) {
-    if (typeof cb !== 'function') return
-    var db = this.bus.database
-    var link = db.objects[id]
-    if (!link || link.type !== 'link') {
-      cb(new Error('link not found'))
-      return
-    }
-    link.enabled = false
-    db.update({ [id]: link })
-    cb()
-  }
 }
