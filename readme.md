@@ -30,6 +30,10 @@ cli/index.js networks.list
 [e13a]
 cli/index.js machines.add e13a machine-template
 a4f1
+cli/index.js machines.add e13a machine-template
+b34c
+cli/index.js links.add a4f1 b34c
+3c6e
 ```
 
 ## License
