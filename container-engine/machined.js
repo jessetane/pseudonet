@@ -30,11 +30,6 @@ module.exports = class ContainerEngine {
     })
     this._setupDbusInterfaces(this.sync)
     this.bus.database.on('change', this.sync)
-    this._syncInterval = setInterval(this.sync, 5000)
-  }
-
-  close () {
-    clearInterval(this._syncInterval)
   }
 
   sync () {
