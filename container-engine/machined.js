@@ -28,7 +28,7 @@ module.exports = class ContainerEngine {
     this.queue.on('error', err => {
       console.error(err)
     })
-    this._lookupDbusInterfaces(this.sync)
+    this._setupDbusInterfaces(this.sync)
     this.bus.database.on('change', this.sync)
     this._syncInterval = setInterval(this.sync, 5000)
   }
@@ -207,7 +207,7 @@ peer name ${PREFIX}-${link.id}-${link.start} netns ${peer.pid}`.replace(/\n/g, '
     })
   }
 
-  _lookupDbusInterfaces (cb) {
+  _setupDbusInterfaces (cb) {
     var systemd = this.dbus.getService('org.freedesktop.systemd1')
     var machined = this.dbus.getService('org.freedesktop.machine1')
     var q = new Queue({ results: [] })
@@ -221,6 +221,7 @@ peer name ${PREFIX}-${link.id}-${link.start} netns ${peer.pid}`.replace(/\n/g, '
       systemd.Manager = results[0][0]
       this.machined = machined
       machined.Manager = results[1][0]
+      this.machined.Manager.on('MachineNew', this.sync)
       if (cb) cb()
     })
   }
