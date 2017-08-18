@@ -16,7 +16,7 @@ module.exports = class Auth extends Emitter {
         client.setInterface('networks', this.bus.networks)
         client.setInterface('machines', this.bus.machines)
         client.setInterface('links', this.bus.links)
-        cb(null, this.bus.database.objects)
+        cb()
       }
       iface.deauthenticate = cb => {
         client.setInterface('database', null)

@@ -30,11 +30,9 @@ tape('connect to server', t => {
 })
 
 tape('signin', t => {
-  t.plan(3)
-  client.call('authenticate', process.env.SECRET, (err, objects) => {
+  t.plan(1)
+  client.call('authenticate', process.env.SECRET, err => {
     t.error(err)
-    t.ok(objects)
-    t.equal(typeof objects, 'object')
   })
 })
 

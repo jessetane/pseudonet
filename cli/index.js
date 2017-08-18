@@ -13,7 +13,7 @@ var socket = new WebSocket('ws://' + process.env.HOST + ':' + process.env.PORT)
 socket.onmessage = evt => client.receive(evt.data)
 socket.onerror = err => { throw err }
 socket.onopen = () => {
-  client.call('authenticate', process.env.SECRET, (err, objects) => {
+  client.call('authenticate', process.env.SECRET, err => {
     if (err) throw err
     client.call.apply(client, args.concat(function (err, result) {
       if (err) throw err
