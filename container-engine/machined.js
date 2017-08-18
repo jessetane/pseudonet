@@ -71,12 +71,6 @@ module.exports = class ContainerEngine {
       this.bus.database.select({ type: 'machine' }, machine => {
         var id = machine.id
         if (!machine.enabled || runningMachines[id]) return
-        var name = `${PREFIX}-${id}`
-        runningMachines[id] = {
-          id,
-          name,
-          objectPath: `/org/freedesktop/machine1/machine/${name.replace(/-/g, '_2d')}`
-        }
         var service = `${PREFIX}-machine@${machine.image}_${PREFIX}-${id}.service`
         q.push(cb => this.systemd.Manager.StartUnit(service, 'replace', function (err) {
           if (DEBUG) {
