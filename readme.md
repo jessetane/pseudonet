@@ -5,7 +5,7 @@ A network modeling tool.
 Wiring up physical gear is expensive and time consuming.
 
 ## How
-[`systemd`](https://www.freedesktop.org/wiki/Software/systemd/), [`systemd-nspawn`](https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html), [`machined`](https://www.freedesktop.org/wiki/Software/systemd/machined/), [`dbus`](https://www.freedesktop.org/wiki/Software/dbus/), [`iproute2`](https://wiki.linuxfoundation.org/networking/iproute2) and a bit of JavaScript.
+Various [`systemd`](https://www.freedesktop.org/wiki/Software/systemd/) tools via [`dbus`](https://www.freedesktop.org/wiki/Software/dbus/), [`iproute2`](https://wiki.linuxfoundation.org/networking/iproute2) and a bit of JavaScript.
 
 ## Install
 ``` shell
