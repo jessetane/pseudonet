@@ -16,7 +16,10 @@ socket.onopen = () => {
   client.call('authenticate', process.env.SECRET, err => {
     if (err) throw err
     client.call.apply(client, args.concat(function (err, result) {
-      if (err) throw err
+      if (err) {
+        console.error(err.message)
+        process.exit(1)
+      }
       console.log(result || 'ok')
       socket.close()
     }))
@@ -27,5 +30,5 @@ var client = new Rpc({
   serialize: JSON.stringify,
   deserialize: JSON.parse,
   send: socket.send.bind(socket),
-  timeout: 3500
+  timeout: 1000
 })
