@@ -1,31 +1,17 @@
 {
-  "name": "netsim",
+  "name": "pseudonet",
   "version": "1.0.0",
-  "description": "gui for building network simulations",
-  "scripts": {
-    "dev": "npm run dev-css & npm run dev-js & node src/server",
-    "dev-css": "CSS_SRC='src/**/*.css' CSS_DEST=src/gui-static-files/build.css CSS_IGNORE='src/gui-static-files/**' build-css --watch",
-    "dev-js": "watchify src/gui/index.js -o src/gui-static-files/build.js"
-  },
+  "description": "A network modeling tool",
   "dependencies": {
-    "build-css": "github:jessetane/build-css#3.0.0",
-    "custom-elements": "github:jessetane/custom-elements",
     "dbus-native": "^0.2.2",
-    "ecstatic": "^2.2.1",
-    "elementary": "github:jessetane/elementary",
     "get-random-values": "^1.2.0",
-    "hyperbind": "^4.0.1",
-    "iproute": "^1.0.2",
     "queue": "^4.4.0",
-    "rpc-events": "^2.0.0",
-    "url-state": "^1.0.4",
-    "uws": "^8.14.1",
-    "watchify": "^3.9.0",
-    "websocket-rpc": "github:jessetane/websocket-rpc#4.1.2"
+    "rpc-events": "^2.1.0",
+    "uws": "^8.14.1"
   },
-  "author": "jesse.tane@gmail.com",
-  "license": "MIT",
   "devDependencies": {
     "tape": "^4.8.0"
-  }
+  },
+  "author": "jesse.tane@gmail.com",
+  "license": "MIT"
 }
