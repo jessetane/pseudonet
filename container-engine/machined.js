@@ -2,7 +2,7 @@ var dbus = require('dbus-native')
 var Queue = require('queue')
 var exec = require('child_process').exec
 
-var PREFIX = 'pn'
+var PREFIX = process.env.PREFIX = process.env.PREFIX || 'pn'
 var DEBUG = false
 
 module.exports = class ContainerEngine {

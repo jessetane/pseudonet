@@ -22,10 +22,12 @@ module.exports = class WebSocketServer extends Emitter {
         id,
         serialize: JSON.stringify,
         deserialize: JSON.parse,
-        send: socket.send.bind(socket)
+        send: socket.send.bind(socket),
+        socket
       })
-      socket.on('message', client.receive)
-      client.once('close', () => {
+      socket.on('message', evt => client.receive(evt))
+      socket.on('close', () => {
+        client.close()
         delete this.clients[client.id]
       })
       this.bus.emit('client', client)

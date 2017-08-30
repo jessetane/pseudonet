@@ -1,4 +1,5 @@
 var Emitter = require('events')
+var Terminals = require('../terminals')
 
 module.exports = class Auth extends Emitter {
   constructor (opts = {}) {
@@ -16,6 +17,7 @@ module.exports = class Auth extends Emitter {
         client.setInterface('networks', this.bus.networks)
         client.setInterface('machines', this.bus.machines)
         client.setInterface('links', this.bus.links)
+        client.setInterface('terminals', new Terminals({ bus: this.bus, client }))
         cb()
       }
       iface.deauthenticate = cb => {
@@ -23,6 +25,7 @@ module.exports = class Auth extends Emitter {
         client.setInterface('networks', null)
         client.setInterface('machines', null)
         client.setInterface('links', null)
+        client.setInterface('terminals', null)
         cb()
       }
     })
