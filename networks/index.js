@@ -42,7 +42,7 @@ module.exports = class Networks {
     cb(null, networks)
   }
 
-  setName (name, cb) {
+  setName (id, name, cb) {
     if (typeof cb !== 'function') return
     var db = this.bus.database
     var network = db.objects[id]
@@ -50,7 +50,33 @@ module.exports = class Networks {
       cb(new Error('network not found'))
       return
     }
-    network.name = true
+    network.name = name
+    db.update({ [id]: network })
+    cb()
+  }
+
+  setOrigin (id, x, y, z, cb) {
+    if (typeof cb !== 'function') return
+    var db = this.bus.database
+    var network = db.objects[id]
+    if (!network || network.type !== 'network') {
+      cb(new Error('network not found'))
+      return
+    }
+    network.origin = [x, y, z]
+    db.update({ [id]: network })
+    cb()
+  }
+
+  setScale (id, scale, cb) {
+    if (typeof cb !== 'function') return
+    var db = this.bus.database
+    var network = db.objects[id]
+    if (!network || network.type !== 'network') {
+      cb(new Error('network not found'))
+      return
+    }
+    network.scale = scale
     db.update({ [id]: network })
     cb()
   }

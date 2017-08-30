@@ -89,4 +89,34 @@ module.exports = class Machines {
     db.update({ [id]: machine })
     cb()
   }
+
+  setName (id, name, cb) {
+    if (typeof cb !== 'function') return
+    var db = this.bus.database
+    var machine = db.objects[id]
+    if (!machine || machine.type !== 'machine') {
+      cb(new Error('machine not found'))
+      return
+    }
+    if (name) {
+      machine.name = name
+    } else {
+      delete machine.name
+    }
+    db.update({ [id]: machine })
+    cb()
+  }
+
+  setOrigin (id, x, y, z, cb) {
+    if (typeof cb !== 'function') return
+    var db = this.bus.database
+    var machine = db.objects[id]
+    if (!machine || machine.type !== 'machine') {
+      cb(new Error('machine not found'))
+      return
+    }
+    machine.origin = [x, y, z]
+    db.update({ [id]: machine })
+    cb()
+  }
 }
