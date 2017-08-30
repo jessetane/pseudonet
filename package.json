@@ -6,7 +6,7 @@
     "dbus-native": "^0.2.2",
     "get-random-values": "^1.2.0",
     "queue": "^4.4.0",
-    "rpc-events": "^2.1.0",
+    "rpc-events": "^2.1.1",
     "uws": "^8.14.1"
   },
   "devDependencies": {
