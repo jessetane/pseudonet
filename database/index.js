@@ -13,8 +13,7 @@ module.exports = class Database extends Emitter {
     return id
   }
 
-  select (query, fn) {
-    var results = []
+  forEach (query, fn) {
     for (var id in this.objects) {
       var object = this.objects[id]
       var matches = true
@@ -28,6 +27,13 @@ module.exports = class Database extends Emitter {
         fn(object)
       }
     }
+  }
+
+  select (query, cb) {
+    var objects = []
+    this.forEach(query, objects.push.bind(objects))
+    if (cb) cb(null, objects)
+    return objects
   }
 
   update (patch) {

@@ -39,10 +39,10 @@ module.exports = class Machines {
     }
     var patch = {}
     patch[id] = null
-    db.select({ type: 'link', start: machine.id }, link => {
+    db.forEach({ type: 'link', start: machine.id }, link => {
       patch[link.id] = null
     })
-    db.select({ type: 'link', end: machine.id }, link => {
+    db.forEach({ type: 'link', end: machine.id }, link => {
       patch[link.id] = null
     })
     db.update(patch)
@@ -57,9 +57,9 @@ module.exports = class Machines {
     if (typeof cb !== 'function') return
     var machines = []
     if (networkId) {
-      this.bus.database.select({ type: 'machine', network: networkId }, machine => machines.push(machine))
+      this.bus.database.forEach({ type: 'machine', network: networkId }, machine => machines.push(machine))
     } else {
-      this.bus.database.select({ type: 'machine' }, machine => machines.push(machine))
+      this.bus.database.forEach({ type: 'machine' }, machine => machines.push(machine))
     }
     cb(null, machines)
   }

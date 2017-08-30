@@ -13,6 +13,7 @@ module.exports = class ServerDatabase extends Database {
       this.objects = {}
     }
     this.remoteInterface = new Emitter()
+    this.remoteInterface.select = this.select.bind(this)
     this.queue = new Queue({
       concurrency: 1,
       autostart: true

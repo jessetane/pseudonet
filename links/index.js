@@ -49,7 +49,7 @@ module.exports = class Links {
     }
     if (typeof cb !== 'function') return
     var links = []
-    this.bus.database.select({ type: 'link' }, link => links.push(link))
+    this.bus.database.forEach({ type: 'link' }, link => links.push(link))
     if (machineId) {
       links = links.filter(link => link.start === machineId || link.end === machineId)
     }

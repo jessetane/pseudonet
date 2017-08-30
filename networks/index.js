@@ -25,9 +25,9 @@ module.exports = class Networks {
     }
     var patch = {}
     patch[id] = null
-    db.select({ type: 'machine', network: id }, machine => {
+    db.forEach({ type: 'machine', network: id }, machine => {
       patch[machine.id] = null
-      db.select({ type: 'link', start: machine.id }, link => {
+      db.forEach({ type: 'link', start: machine.id }, link => {
         patch[link.id] = null
       })
     })
@@ -38,7 +38,7 @@ module.exports = class Networks {
   list (cb) {
     if (typeof cb !== 'function') return
     var networks = []
-    this.bus.database.select({ type: 'network' }, network => networks.push(network))
+    this.bus.database.forEach({ type: 'network' }, network => networks.push(network))
     cb(null, networks)
   }
 

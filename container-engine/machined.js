@@ -63,7 +63,7 @@ module.exports = class ContainerEngine {
           cb(err)
         }))
       })
-      this.bus.database.select({ type: 'machine' }, machine => {
+      this.bus.database.forEach({ type: 'machine' }, machine => {
         var id = machine.id
         if (!machine.enabled || runningMachines[id]) return
         var service = `${PREFIX}-machine@${machine.image}_${PREFIX}-${id}.service`
@@ -118,7 +118,7 @@ module.exports = class ContainerEngine {
       Object.keys(runningMachines).forEach(id => {
         var runningMachine = runningMachines[id]
         if (runningMachine.stopping) return
-        this.bus.database.select({ type: 'link', start: runningMachine.id }, link => {
+        this.bus.database.forEach({ type: 'link', start: runningMachine.id }, link => {
           var peer = runningMachines[link.end]
           if (!peer || !peer.pid || peer.stopping || runningMachine.links[link.id]) return
           peer.links[link.id] = {}
